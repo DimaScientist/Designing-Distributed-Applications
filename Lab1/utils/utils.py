@@ -1,15 +1,16 @@
 import random
 import socket
+import numpy as np
 from typing import List
 
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+from PIL import Image
+from matplotlib import pylab
 
 from config import Config
 
 
 def salt_and_paper_noise(img: np.array):
+    print(img.shape)
     row, col = img.shape
 
     number_of_pixels = random.randint(300, 10000)
@@ -77,6 +78,7 @@ def get_port(ports: List[int] = Config.PORTS, host: str = Config.HOST) -> int:
 
 
 def show_image(file_path: str, title: str) -> None:
-    plt.title = title
-    plt.imshow(mpimg.imread(file_path))
-    plt.show()
+    pylab.title(title)
+    pylab.imshow(Image.open(file_path))
+    pylab.axis("off")
+    pylab.show()
