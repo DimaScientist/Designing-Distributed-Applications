@@ -51,7 +51,7 @@ def client_run(host: str, server_port: int, chunk_size: int) -> None:
         try:
             image_path: str = input("Введите путь до изображения: ")
             gray_image_path = save_to_grayscale(image_path)
-            show_image(gray_image_path, "Исхдное изображение (клиент)")
+            show_image(gray_image_path, "Исходное изображение (клиент)")
             client.send_data(gray_image_path)
             sleep(10)
         except FileNotFoundError:
