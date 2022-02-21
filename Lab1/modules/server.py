@@ -65,7 +65,7 @@ class Server:
         show_image(self.__file_path, "Изображение, полученное сервером")
         self.__clean_image()
         show_image(self.__file_path, "Изображение, очищенное сервером")
-        logger.info(f"Size of data on server: {os.path.getsize(self.__file_path)}")
+        logger.info(f"Size of data on server: {os.path.getsize(self.__file_path)} bytes.")
 
 
 def server_run(host: str, port: int, chunk_size: int) -> None:
