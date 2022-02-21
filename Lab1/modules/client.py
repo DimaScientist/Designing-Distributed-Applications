@@ -4,7 +4,7 @@ import sys
 
 from loguru import logger
 
-from utils import show_image
+from utils import show_image, save_to_grayscale
 
 
 class Client:
@@ -49,7 +49,8 @@ def client_run(host: str, server_port: int, chunk_size: int) -> None:
     while True:
         try:
             image_path: str = input("Введите путь до изображения: ")
-            show_image(image_path, "Исхдное изображение (клиент)")
-            client.send_data(image_path)
+            gray_image_path = save_to_grayscale(image_path)
+            show_image(gray_image_path, "Исхдное изображение (клиент)")
+            client.send_data(gray_image_path)
         except FileNotFoundError:
             print("Файл не найден, попробуйте еще.")

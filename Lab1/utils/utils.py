@@ -1,5 +1,8 @@
+import os.path
 import random
 import socket
+import uuid
+
 import numpy as np
 from typing import List
 
@@ -75,6 +78,15 @@ def get_port(ports: List[int] = Config.PORTS, host: str = Config.HOST) -> int:
         if not is_open_port(port, host):
             Config.PORTS.remove(port)
             return port
+
+
+def save_to_grayscale(image_path) -> str:
+    image_gray = Image.open(image_path).convert('LA')
+    if not os.path.exists("data"):
+        os.mkdir("data")
+    new_path = os.path.join("data", f"{uuid.uuid4()}.png")
+    image_gray.save(new_path)
+    return new_path
 
 
 def show_image(file_path: str, title: str) -> None:
