@@ -1,6 +1,7 @@
 import os
 import socket
 import sys
+from time import sleep
 
 from loguru import logger
 
@@ -10,15 +11,15 @@ from utils import show_image, save_to_grayscale
 class Client:
 
     def __init__(self, server_port: int, host: str, chunk_size: int):
-        self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.__client_socket = None
         self.__host = host
         self.__server_port = server_port
         self.__chunk_size = chunk_size
 
     def send_data(self, image_path: str) -> None:
         try:
+            self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.__client_socket.connect((self.__host, self.__server_port))
-
             file = open(image_path, "rb")
 
             file_size = os.path.getsize(image_path)
@@ -52,5 +53,6 @@ def client_run(host: str, server_port: int, chunk_size: int) -> None:
             gray_image_path = save_to_grayscale(image_path)
             show_image(gray_image_path, "Исхдное изображение (клиент)")
             client.send_data(gray_image_path)
+            sleep(10)
         except FileNotFoundError:
             print("Файл не найден, попробуйте еще.")

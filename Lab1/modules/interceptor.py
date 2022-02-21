@@ -14,18 +14,17 @@ from utils import salt_and_paper_noise
 class Interceptor:
 
     def __init__(self, host: str, port: int, server_port: int, chunk_size: int):
+        self.__interceptor_socket_sender = None
         self.__host = host
         self.__port = port
         self.__server_port = server_port
         self.__chunk_size = chunk_size
         self.__interceptor_socket_listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.__interceptor_socket_sender = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__tmp_folder = tempfile.gettempdir()
         self.__file_path: str = ""
 
     def __del__(self):
         self.__interceptor_socket_listener.close()
-        self.__interceptor_socket_sender.close()
 
     def start_listening(self) -> None:
         logger.info(f"\nInterceptor listening on: {self.__host}:{self.__port}")
@@ -64,6 +63,7 @@ class Interceptor:
     def intercept_image(self) -> None:
         self.__upload_image()
         self.__add_noise()
+        self.__interceptor_socket_sender = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__interceptor_socket_sender.connect((self.__host, self.__server_port))
         file = open(self.__file_path, "rb")
 
