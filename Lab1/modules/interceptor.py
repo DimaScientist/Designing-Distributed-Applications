@@ -1,15 +1,11 @@
 import os.path
 import socket
+import sys
 import tempfile
 import uuid
+
 import numpy as np
 from PIL import Image
-from time import sleep
-
-import cv2
-import shutil
-import sys
-
 from loguru import logger
 
 from utils import salt_and_paper_noise

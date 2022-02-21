@@ -1,10 +1,10 @@
 from time import sleep
+from threading import Thread
 
 from config import Config
 from utils import get_port
 from modules import client_run, interceptor_run, server_run
 
-from threading import Thread
 
 if __name__ == "__main__":
     server_port = get_port()

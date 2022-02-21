@@ -2,7 +2,6 @@ import os
 import shutil
 import socket
 import sys
-import tempfile
 import uuid
 
 import numpy as np
