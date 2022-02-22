@@ -46,6 +46,8 @@ class Server:
             receive_size += sys.getsizeof(image_chunk)
             logger.info(f"Receive data: {receive_size} bytes")
             image_chunk = client_socket.recv(self.__chunk_size)
+            if sys.getsizeof(image_chunk) < self.__chunk_size:
+                logger.warning(f"Image size not equals chunk size: {sys.getsizeof(image_chunk)} bytes")
 
         file.close()
         client_socket.close()
